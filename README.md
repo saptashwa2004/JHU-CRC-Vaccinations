@@ -29,6 +29,10 @@ Enclosed are the Analysis, Cleaning, and Harmonization R scripts with their asso
 
 NOTE: Re-running the cleaning script might result in result variations as a product of the isotonic regression.
 
+This project uses a renv() lock so that the enviroment is reporducible for all users. Here we used R version 4.4.1. Users not using this version of R may experience problems running the script, even with the renv() activated. After initially establishing your local copy (mirror) from this remote repository, activate the enviroment by runing ``renv::restore()`` in the R Console and following the prompts.
+
+NOTE: You may need to run ``renv::restore()`` twice to initialize and install all the packages indicated for by the lockfile. You know you are all set to go when running ``renv::restore()`` gives you ``- The library is already synchronized with the lockfile.``
+
 ## About The Data Used
 
 The [Johns Hopkins Coronavirus Resource Center](https://coronavirus.jhu.edu/) (JHU CRC) tracked and made publically available COVID-19 pandemic data from January 22, 2020 and March 10, 2023. Here, we imported cumulative vaccination counts for the U.S. from their [GovEX/COVID-19](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data) GitHub repository. The raw data used in the analysis script can be found in the data_tables/vaccine_data/us_data/time_series subdirectory ([original source](https://github.com/govex/COVID-19/blob/master/data_tables/vaccine_data/us_data/time_series/time_series_covid19_vaccine_us.csv)).
