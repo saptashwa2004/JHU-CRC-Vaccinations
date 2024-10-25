@@ -7,6 +7,7 @@ The Johns Hopkins Coronovirus Resource Center (JHU CRC) GitHub page ([GovEX - US
 New sources:
 - U.S. Census Population totals [2010 to 2019](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-state-total.html#par_textimage_500989927)
 - U.S. Census Population totals [2010 to 2019](https://www.census.gov/data/datasets/time-series/demo/popest/2020s-state-total.html)
+- U.S. Territories [2010 to 2023](https://www.census.gov/data-tools/demo/idb/#/table?COUNTRY_YEAR=2024&COUNTRY_YR_ANIM=2024&menu=tableViz&quickReports=CUSTOM&CUSTOM_COLS=POP,GR,RNI,NATINCR,CBR,BIRTHS,CDR,DEATHS,NMR,NIM&TABLE_YEARS=2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023&TABLE_USE_RANGE=Y&TABLE_USE_YEARS=N&TABLE_STEP=1&TABLE_ADD_YEARS=2010,2020&CCODE_SINGLE=AS&CCODE=AS,GU,MP,PR,US,VI&TABLE_RANGE=2010,2023)
 
 
 Notes:
