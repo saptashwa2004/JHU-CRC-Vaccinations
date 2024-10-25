@@ -2,25 +2,21 @@
 
 ## About The Coffee, Cookie and Coding $\left(C^3\right)$ Workshops
 
-Yale's Public Health Data Science and Data Equity (DSDE) Team team create this workshop series to assist Public Health and Biostatistics masters-level students in the Yale School of Public Health (YSPH) effectively leverage computational tools and analytical methods in their educational and future professional endeavors. You can find out more about past and upcoming tutorials on our YouTube (link) and website (link).
+Yale's Public Health Data Science and Data Equity (DSDE) team created this workshop series for Public Health and Biostatistics masters-level students at Yale. They are designed to help learners effectively leverage computational tools and analytical methods in their educational and professional endeavors. You can find out more about past and upcoming tutorials on our YouTube (link) and website (event page link).
 
 
 ## About Workshop
 
-**Workshop Title:** Getting Started with Git and GitHub
+**Workshop Title:** &nbsp; Getting Started with Git and GitHub
 
-**Platform:** &emsp;&emsp;&emsp; Hybrid (link to Zoom)
-
-**Event Page:** &emsp;&nbsp;&nbsp; (link to website calendar event)
-
-**Date:** &emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp; Monday November $4^{\text{th}}$, 2024
+**Date:** &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; Monday November $4^{\text{th}}$, 2024
 
 We will be launching our Coffee, Cookie and Coding $\left(C^3\right)$ workshop series with a starter guide on Git and GitHub. Upon completing the workshop, you will be able to:
 - Identify the benefits of using Git and GitHub.
 - Configure your local Git and personal GitHub accounts and set up their security keys.
 - Share and contribute to projects with an example created in RStudio.
 
-If you are affiliated with Yale, you can set up an office hour appointment with one of the data scientists ([Bookings Page](https://outlook.office365.com/owa/calendar/DataScienceDataEquityOfficeHours@yale.edu/bookings/)).
+You can find out more about past and upcoming tutorials on our YouTube (link) and website (event page link). If you are affiliated with Yale, you can set up an office hour appointment with one of the data scientists ([Bookings Page](https://outlook.office365.com/owa/calendar/DataScienceDataEquityOfficeHours@yale.edu/bookings/)).
 
 ## About Repository
 
@@ -36,9 +32,9 @@ There are two GitHub repsitories associated with this workshop. The link to the 
 
 **NOTE:** The cleaning and census harmonization scripts have already been run to generate the necessary files called in the analysis workflow. Users of this repository will only need to open the "Analysis Script_Vaccinations Time-Series Plot.R". Re-running the cleaning script _might_ result in variations as a product of the isotonic regression.
 
-## How to Use This Repository
+## Using this Repository
 
-### Clean-Break Copy of the Repo
+### Making a Clean-Break Copy
 
 The repository needs to be copied into your personal GitHub for the workshop. Please use one of the following two methods to do this.
 
@@ -103,14 +99,14 @@ The repository needs to be copied into your personal GitHub for the workshop. Pl
    git clone https://github.com/EXAMPLE-USER/NEW-REPOSITORY.git
    ```
 
-4. OPTIONAL: Reset the repository history (clears the previous commits).
+4. OPTIONAL: Reset the repository history (clears the previous commits) [StackExchange by Zeelot](https://stackoverflow.com/questions/9683279/make-the-current-commit-the-only-initial-commit-in-a-git-repository).
     ```
     git checkout --orphan tempBranch         # Create a temporary branch
     git add -A                               # Add all files and commit them
     git commit -m "Reset the repo"
-    git branch -D main                       # Deletes the master branch
-    git branch -m main                       # Rename the current branch to master
-    git push -f origin main                  # Force push master branch to github
+    git branch -D main                       # Deletes the main branch
+    git branch -m main                       # Rename the current branch to main
+    git push -f origin main                  # Force push main branch to github
     git gc --aggressive --prune=all          # Remove the old files
     ```
 
