@@ -36,25 +36,25 @@ There are two GitHub repsitories associated with this workshop. The link to the 
 
 ### Making a Clean-Break Copy
 
-The repository needs to be copied into your personal GitHub for the workshop. Please use one of the following two methods to do this.
+The repository needs to be copied into your personal GitHub for the workshop in a manner that will decouple its operations from this original repository. Please use one of the following two methods to do this.
 
-**Copying Using GitHub (not a Fork)**
+**METHOD 1:** Copying Using GitHub (not a Fork)
 
 1. 
 
-**Copying Using Terminal**
+**METHOD 2:** Copying Using Terminal
 
 1. [Create a new](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository) GitHub repository.
    
    **NOTE:** Do not use a template or include a description, README file, .gitignore, or license. Only adjust the GitHub account owner as needed and create the name for the new repository. We recommend you intially set the repository to Private.
    
 2. Open Terminal.
-3. Navigate to the file location you want to copy the repo to.
+3. Navigate to the file location you want to sotre the repository copy.
    ```
    cd "/file_location/"
    ```
 
-4. Clone a bare copy of the repo.
+4. Clone a bare copy of the repository.
    ```
    # using SSH
    git clone --bare git@github.com:ysph-dsde/JHU-CRC-Vaccinations.git
@@ -77,20 +77,22 @@ The repository needs to be copied into your personal GitHub for the workshop. Pl
    git push --mirror https://github.com/EXAMPLE-USER/NEW-REPOSITORY.git
    ```
 
-7. Copy the following into the terminal to remove the project file used to create a new remote repository.
+7. Delete the bare cloned file used to create a new remote repository.
    ```
-   cd ..
-   rm -rf JHU-CRC-Vaccinations.git
+   cd ..                                    # Go back one file location
+   rm -rf JHU-CRC-Vaccinations.git          # Delete the bare clone
    ```
 
-### Cloning the Copied Repo
+### Cloning the Copied Repository
+
+Now that you have copied this repository into your own GitHub, you are ready to proceed with a standard clone to your local device.
   
 1. Open Terminal.
-2. Navigate to the file location you want to copy the repo to.
+2. Navigate to the file location you want to sotre the repository copy.
    ```
    cd "/file_location/"
    ```
-3. Clone a the newly created GitHub repository.
+3. Clone the newly created GitHub repository.
    ```
    # using SSH
    git clone git@github.com:EXAMPLE-USER/NEW-REPOSITORY.git
@@ -99,33 +101,34 @@ The repository needs to be copied into your personal GitHub for the workshop. Pl
    git clone https://github.com/EXAMPLE-USER/NEW-REPOSITORY.git
    ```
 
-4. OPTIONAL: Reset the repository history (clears the previous commits) [StackExchange by Zeelot](https://stackoverflow.com/questions/9683279/make-the-current-commit-the-only-initial-commit-in-a-git-repository).
+4. **OPTIONAL:** You can reset the repository history, which will clear the previous commits, by running the following block of code (Source: [StackExchange by Zeelot](https://stackoverflow.com/questions/9683279/make-the-current-commit-the-only-initial-commit-in-a-git-repository)).
     ```
     git checkout --orphan tempBranch         # Create a temporary branch
     git add -A                               # Add all files and commit them
     git commit -m "Reset the repo"
     git branch -D main                       # Deletes the main branch
     git branch -m main                       # Rename the current branch to main
-    git push -f origin main                  # Force push main branch to github
+    git push -f origin main                  # Force push main branch to GitHub
     git gc --aggressive --prune=all          # Remove the old files
     ```
 
 ### Initializing the Environment
 
-1. Open the newly cloned file and launch the "JHU-CRC-Vaccinations.Rproj" project file.
-2. Open "Analysis Script_Vaccinations Time-Series Plot.R".
-3. In the R console, activate the enviroment by runing:
+1. Open the newly cloned file.
+2. Launch the project by opening "JHU-CRC-Vaccinations.Rproj".
+3. Open "Analysis Script_Vaccinations Time-Series Plot.R".
+4. In the R console, activate the enviroment by runing:
     ```
     renv::restore()
     ```
 
-   **NOTE:** You may need to run ``renv::restore()`` twice to initialize and install all the packages indicated for by the lockfile. You know you are all set to go when running ``renv::restore()`` gives you ``- The library is already synchronized with the lockfile.``
+   **NOTE:** You may need to run ``renv::restore()`` twice to initialize and install all the packages listed in the lockfile. Follow the prompts that comes up and accept intillation of all packages. You are ready to proceed when running ``renv::restore()`` gives the output ``- The library is already synchronized with the lockfile.``. You can read more about ``renv()`` in their [vignette](https://rstudio.github.io/renv/articles/renv.html).
 
 ## About Original Data Source
 
-The [Johns Hopkins Coronavirus Resource Center](https://coronavirus.jhu.edu/) (JHU CRC) tracked and made publically available COVID-19 pandemic data from January 22, 2020 and March 10, 2023. We imported cumulative vaccination counts for the U.S. from their [GovEX/COVID-19](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data) GitHub repository. The raw data used in the analysis script can be found in the data_tables/vaccine_data/us_data/time_series subdirectory ([original source](https://github.com/govex/COVID-19/blob/master/data_tables/vaccine_data/us_data/time_series/time_series_covid19_vaccine_us.csv)).
+The [Johns Hopkins Coronavirus Resource Center](https://coronavirus.jhu.edu/) (JHU CRC) tracked and compiled global COVID-19 pandemic data from January 22, 2020 and March 10, 2023. These data are publically available through their two GitHub repositories. We imported cumulative vaccination counts for the U.S. from their [GovEX/COVID-19](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data) GitHub repository. The raw data used in the analysis script can be found in the data_tables/vaccine_data/us_data/time_series subdirectory ([original source](https://github.com/govex/COVID-19/blob/master/data_tables/vaccine_data/us_data/time_series/time_series_covid19_vaccine_us.csv)).
 
-The data dictionary provided by JHU CRC has been copied to this repository ([original source](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data/us_data)). Additional details and methods for harmonizing the U.S. Census Bureau's 2010 to 2019 population projections with 2020 to 2023 vintages can be found in the "Population Estimates and Projections" subdirectory.
+The data dictionary provided by JHU CRC has been copied to this repository ([original source](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data/us_data)). Additional details and methods for harmonizing the U.S. Census Bureau's 2010 to 2019 population projections with 2020 to 2023 vintages can be found in the "Population Estimates and Projections" subdirectory of this GitHub repository.
 
 
 
