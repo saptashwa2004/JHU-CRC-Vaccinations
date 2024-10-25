@@ -13,6 +13,8 @@ New sources:
 Notes:
 - [Population Estimates and Projections for the U.S. Island Areas](https://www.census.gov/programs-surveys/international-programs/about/idb/island-areas.html)
 - [Impact of 2020 on Island Census](https://www.census.gov/newsroom/press-releases/2024/2020-island-areas-cross-tabulation-american-samoa.html)
+- About [Pupulation Estimates](https://www.census.gov/programs-surveys/popest/about.html).
+- About [Population Projections](https://www.census.gov/programs-surveys/popproj/about.html).
 
 
 
