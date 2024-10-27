@@ -1,5 +1,5 @@
 ## ----------------------------------------------------------------------------
-## From Yale's Public Health Data Science and Data Equity (DSDE) Team
+## Produced by Yale's Public Health Data Science and Data Equity (DSDE) team
 ##
 ## Workshop: Getting Started with Git and GitHub
 ## Authors:  Shelby Golden, M.S.
@@ -10,11 +10,11 @@
 ##
 ## Description: This script imports the Johns Hopkins University Coronavirus
 ##              Resource Center (JHU CRC) vaccination data for U.S. states
-##              and territories and pre-processes it for time-series plotting.
+##              and territories, and pre-processes it for time-series plotting.
 ##              The data was assessed for irregularities and errors (i.e.
 ##              duplicated entries and NA's). The cumulative counts were
-##              smoothed to be fully monotonically increasing before calculating
-##              the daily vaccination rates.
+##              smoothed to be fully monotonically increasing before
+##              calculating the daily vaccination rates.
 
 ## ----------------------------------------------------------------------------
 ## SET UP THE ENVIRONMENT
