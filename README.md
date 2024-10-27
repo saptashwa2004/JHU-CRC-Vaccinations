@@ -30,7 +30,7 @@ There are two GitHub repsitories associated with this workshop. The link to the 
 - **R version:** 4.4.1
 - ``renv`` is included to reproduce the environment.
 
-**NOTE:** The cleaning and census harmonization scripts have already been run to generate the necessary files called in the analysis workflow. Users of this repository will only need to open the "Analysis Script_Vaccinations Time-Series Plot.R". Re-running the cleaning script _might_ result in variations as a product of the isotonic regression.
+**NOTE:** The cleaning and census harmonization scripts have already been run to generate the necessary files called in the analysis workflow. Users of this repository will only need to open the "Analysis Script_Vaccinations Time-Series Plot.R".
 
 ## Using this Repository
 
@@ -38,15 +38,21 @@ There are two GitHub repsitories associated with this workshop. The link to the 
 
 The repository needs to be copied into your personal GitHub for the workshop in a manner that will decouple its operations from this original repository. Please use one of the following two methods to do this.
 
-**METHOD 1:** Copying Using GitHub (not a Fork)
+**METHOD 1:** Copying Using GitHub Importer
 
-1. 
+**NOTE:** This method is not a Fork. You can learn more about GitHub Importer [here](https://docs.github.com/en/migrations/importing-source-code/using-github-importer/importing-a-repository-with-github-importer).
+
+1. Under the "Repositories" tab of your personal GitHub page, selecte the "New" button in the top-right corner. This will start the process of starting a new repository.
+2. At the top of the page is a hyperlink to import a repository. Open that link ([GitHub Importer](https://github.com/new/import)).
+3. Paste the URL of this repository when prompted. No credentials are required for this action.
+4. Adjust the GitHub account owner as needed and create the name for the new repository. We recommend initially setting the reposiotry to Private.
+5. Proceed with cloning the newly copied repository.
 
 **METHOD 2:** Copying Using Terminal
 
 1. [Create a new](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository) GitHub repository.
    
-   **NOTE:** Do not use a template or include a description, README file, .gitignore, or license. Only adjust the GitHub account owner as needed and create the name for the new repository. We recommend you intially set the repository to Private.
+   **NOTE:** Do not use a template or include a description, README file, .gitignore, or license. Only adjust the GitHub account owner as needed and create the name for the new repository. We recommend initially setting the reposiotry to Private.
    
 2. Open Terminal.
 3. Navigate to the file location you want to sotre the repository copy.
@@ -82,6 +88,7 @@ The repository needs to be copied into your personal GitHub for the workshop in 
    cd ..                                    # Go back one file location
    rm -rf JHU-CRC-Vaccinations.git          # Delete the bare clone
    ```
+8. Proceed with cloning the newly copied repository.
 
 ### Cloning the Copied Repository
 
