@@ -43,9 +43,13 @@ The repository needs to be copied into your personal GitHub for the workshop in 
 **NOTE:** This method is not a Fork. You can learn more about GitHub Importer [here](https://docs.github.com/en/migrations/importing-source-code/using-github-importer/importing-a-repository-with-github-importer).
 
 1. Under the "Repositories" tab of your personal GitHub page, selecte the "New" button in the top-right corner. This will start the process of starting a new repository.
+
 2. At the top of the page is a hyperlink to import a repository. Open that link ([GitHub Importer](https://github.com/new/import)).
+
 3. Paste the URL of this repository when prompted. No credentials are required for this action.
+
 4. Adjust the GitHub account owner as needed and create the name for the new repository. We recommend initially setting the reposiotry to Private.
+
 5. Proceed with cloning the newly copied repository.
 
 **METHOD 2:** Copying Using Terminal
@@ -55,12 +59,13 @@ The repository needs to be copied into your personal GitHub for the workshop in 
    **NOTE:** Do not use a template or include a description, README file, .gitignore, or license. Only adjust the GitHub account owner as needed and create the name for the new repository. We recommend initially setting the reposiotry to Private.
    
 2. Open Terminal.
+
 3. Navigate to the file location you want to sotre the repository copy.
    ```
    cd "/file_location/"
    ```
 
-4. Clone a bare copy of the repository.
+5. Clone a bare copy of the repository.
    ```
    # using SSH
    git clone --bare git@github.com:ysph-dsde/JHU-CRC-Vaccinations.git
@@ -69,12 +74,12 @@ The repository needs to be copied into your personal GitHub for the workshop in 
    git clone --bare https://github.com/ysph-dsde/JHU-CRC-Vaccinations.git
    ```
    
-5. Open the project file.
+6. Open the project file.
    ```
    cd "JHU-CRC-Vaccinations.git"
    ```
    
-6. Push a mirror of the cloned Git file to your newly created GitHub repository.
+7. Push a mirror of the cloned Git file to your newly created GitHub repository.
    ```
    # using SSH
    git push --mirror git@github.com:EXAMPLE-USER/NEW-REPOSITORY.git
@@ -83,23 +88,24 @@ The repository needs to be copied into your personal GitHub for the workshop in 
    git push --mirror https://github.com/EXAMPLE-USER/NEW-REPOSITORY.git
    ```
 
-7. Delete the bare cloned file used to create a new remote repository.
+8. Delete the bare cloned file used to create a new remote repository.
    ```
    cd ..                                    # Go back one file location
    rm -rf JHU-CRC-Vaccinations.git          # Delete the bare clone
    ```
-8. Proceed with cloning the newly copied repository.
+9. Proceed with cloning the newly copied repository.
 
 ### Cloning the Copied Repository
 
 Now that you have copied this repository into your own GitHub, you are ready to proceed with a standard clone to your local device.
   
 1. Open Terminal.
+
 2. Navigate to the file location you want to sotre the repository copy.
    ```
    cd "/file_location/"
    ```
-3. Clone the newly created GitHub repository.
+4. Clone the newly created GitHub repository.
    ```
    # using SSH
    git clone git@github.com:EXAMPLE-USER/NEW-REPOSITORY.git
@@ -108,7 +114,7 @@ Now that you have copied this repository into your own GitHub, you are ready to 
    git clone https://github.com/EXAMPLE-USER/NEW-REPOSITORY.git
    ```
 
-4. **OPTIONAL:** You can reset the repository history, which will clear the previous commits, by running the following block of code (Source: [StackExchange by Zeelot](https://stackoverflow.com/questions/9683279/make-the-current-commit-the-only-initial-commit-in-a-git-repository)).
+5. **OPTIONAL:** You can reset the repository history, which will clear the previous commits, by running the following block of code (Source: [StackExchange by Zeelot](https://stackoverflow.com/questions/9683279/make-the-current-commit-the-only-initial-commit-in-a-git-repository)).
     ```
     git checkout --orphan tempBranch         # Create a temporary branch
     git add -A                               # Add all files and commit them
