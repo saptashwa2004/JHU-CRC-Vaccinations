@@ -185,7 +185,7 @@ df_cleaned %>%
 ## First we will inspect the harmonized census population estimates.
 ## NOTE: Vintages are updated annually based on the current year of the update
 ## and only spans the dates between the recent census year to the last
-## intercensal year preceding the next one. The harmonized data set combines
+## intercensal year preceding the next census. The harmonized data set combines
 ## vintages from the 2010 to 2019 census estimates and the 2020 to 2023
 ## census estimates. Additional details can be found in the "Population 
 ## Estimates and Projections" subdirectory of this projects GitHub repo.
@@ -221,7 +221,7 @@ unique(df_cleaned$Province_State) %>% .[. %!in% unique(census_2010to2023$NAME)]
 
 
 ## The first thing to notice is the Virgin Islands is represented in the
-## U.S. Census data, it is simply labeled "Virgin Islands, U.S.". We
+## U.S. Census data, but with a different string: "Virgin Islands, U.S.". We
 ## can correct this by changing the df_cleaned name.
 
 df_cleaned$Province_State[df_cleaned$Province_State %in% "Virgin Islands"] <- "Virgin Islands, U.S."
@@ -236,7 +236,7 @@ unique(df_cleaned$Province_State) %>% .[. %!in% unique(census_2010to2023$NAME)]
 ## projections for census and intercensal years: Official U.S. Estimates (OE) 
 ## and International Database (IDB). On their website, they recommend using
 ## the OE for both metrics for the United States, and the OE for population
-## estimates and IDB for population projections of Puerto Rico.
+## estimates and IDB for population projections for Puerto Rico.
 ##
 ## We filter the census data to reflect this recommendation.
 
@@ -256,9 +256,15 @@ missing_entries <- unique(census_2010to2023$NAME) %>% .[. %!in% unique(df_cleane
 missing_entries
 
 
+
+
+## ----------------------------------------------------------------------------
+## ADD MISSING REGIONS AND DIVISIONS TO MAIN DATA SET
+
+
 ## We can generate those using the regional and division map provided by
-## the U.S. Census Bureau (refer to this projects GitHub, folder "Population 
-## Estimates and Projections" subdirectory README for additional information).
+## the U.S. Census Bureau. Refer to this projects GitHub, folder "Population 
+## Estimates and Projections" subdirectory README for additional information.
 
 # Create a reference to map census counts when aggregating sums.
 us_regions_divisions <- 
@@ -295,7 +301,7 @@ filtered_search_space <- df_cleaned[df_cleaned$Province_State %in% us_regions_di
                                     c(1:2, which(str_detect(colnames(df_cleaned), "daily") ))] %>% 
   `rownames<-`(NULL)
 
-# Add a divisions column by merging the two data sets by "NAME".
+# Add a U.S. divisions column by merging the two data sets by "Province_State".
 added_regions <- merge(us_regions_divisions, filtered_search_space, by = c("Province_State"))
 
 
@@ -369,19 +375,21 @@ for (i in 1:length(subset_census$NAME)) {
     relevant_pop_est[j] <- subset_census[i, str_detect(colnames(subset_census), as.character(staged_dates[j]))]
   }
   
-  # Normalize over all columns for vaccination daily counts.
-  precentages <- subset[, daily_counts] %>% sapply(., function(x)
+  # Normalize over all columns for vaccination daily counts. Excluding doses
+  # administered because it does not mean as much as the other metrics when
+  # normalized by the total population.
+  percentages <- subset[, daily_counts[-1]] %>% sapply(., function(x)
     round((x / relevant_pop_est) * 100, 0))
   
   # Save the results and join them with the metadata columns for merging 
   # back to the main data set.
-  result[[i]] <- cbind(subset[, c("Province_State", "Month")], precentages)
+  result[[i]] <- cbind(subset[, c("Province_State", "Month")], percentages)
 }
 # Combine the results (list format) into a data frame by adding rows. Each
 # row reflects the percentage results for one "Province_State" and each column
 # represents the vaccine counting method.
 result <- do.call(rbind, result) %>% as.data.frame() %>%
-  `colnames<-`(c("Province_State", "Month", str_c(cumulative_counts, "_percent")))
+  `colnames<-`(c("Province_State", "Month", str_c(cumulative_counts[-1], "_percent")))
 
 # Merge the previous data set with the normalized daily counts, combining by
 # unique matches with the "Month" and "Province_State" columns.
@@ -389,7 +397,7 @@ df_total <- merge(df, result, by = c("Province_State", "Month"))
 
 
 ## For convenience, we'll order the rows by granular regions, starting
-## from the complete United States to regions, to states/territories.
+## from the complete United States to regions to states/territories.
 order_by <- c("United States", querry,
               sort(c(datasets::state.name, "District of Columbia")), 
               c("American Samoa", "Guam", "Northern Mariana Islands", 
@@ -412,6 +420,110 @@ df_total <- build %>% `rownames<-`(NULL)
 
 
 ## ----------------------------------------------------------------------------
+## CUMULATIVE VACCINATION TO SEPCIFIED DATE
+
+## Say we want to plot the changes in percent vaccinated over time. We
+## need to generate cumulative vaccination counts to specific dates
+## and normalize based on the projected population was that year. This will
+## require creating a new data set that spans discrete years instead of months.
+##
+## To make our life easier, we can extract the cumulative counts to specific
+## points of time for each unique "Province_State" entry. As a sanity check,
+## we will confirm that each "Province_State" has the same dates.
+
+# Search space for the sub setting is by unique "Province_State" entries.
+search_space      = df_total$Province_State %>% unique()
+# Pull the unique months detected in the whole data set.
+unique_months     = df_total$Month %>% unique()
+# Extract out the cumulative counts. These are columns that do not have
+# "..._daily" or "..._percent" in their column names. We're going to exclude
+# the column representing the doses administered, as it is not going to be
+# meaningful in this evaluation.
+subset_cum_counts = df_total[, c(1:2, which(str_detect(colnames(df_total), "_yf\\b"))[-1])]
+
+
+result = c()
+# Boolean test that each "Province_State" subset has the same months. Everything
+# should be ordered in increasing dates, and so we do an exact match test.
+for (i in 1:length(search_space)) {
+  # Extract the months listed for each "Province_State" and test for exact match
+  # with the reference unique_months vector.
+  test      <- subset_cum_counts %>% .[.$Province_State %in% search_space[i], "Month"] == unique_months
+  result[i] <- test %>% all()
+}
+# Organize the results into a data frame. Each row reflects the Boolean test
+# results for one "Province_State".
+as.data.frame(result) %>% `rownames<-`(search_space) %>% `colnames<-`("Same Dates?")
+
+
+## Looks like all results are true. Therefore, we will take the max month
+## listed under each year and save the row result that matches that date.
+
+data_range = str_c("20", c("20", "21", "22", "23"))
+
+build = list()
+for (i in 1:length(data_range)) {
+  querry     <- data.frame("Months" = unique_months, "Year" = year(unique_months)) %>% .[.$"Year" %in% data_range[i], "Months"] %>% max()
+  build[[i]] <- subset_cum_counts %>% .[.$Month %in% querry, ]
+}
+# Combine the results (list format) into a data frame by adding rows. Each
+# list element includes the subset of our data set by the max month in
+# each year.
+df_cumulative <- do.call(rbind, build) %>% `rownames<-`(NULL)
+
+
+
+
+## Now we'll normalize the vaccination daily counts by the population estimates
+## for that year to get the percent of the population that was vaccinated.
+
+result = list()
+for (i in 1:length(subset_census$NAME)) {
+  # Separate out the rows associated with one "Province_State" entry.
+  subset <- df_cumulative %>% .[.$Province_State %in% subset_census$NAME[i], ]
+  
+  # Collect the year that the observation was made.
+  staged_dates <- subset[, "Month"] %>% year()
+  
+  relevant_pop_est = c()
+  for (j in 1:length(staged_dates)) {
+    # Create a vector with the appropriate intercensal year population estimates
+    # that matches the staged_dates vector entry-by-entry.
+    relevant_pop_est[j] <- subset_census[i, str_detect(colnames(subset_census), as.character(staged_dates[j]))]
+  }
+  
+  # Normalize over all columns for vaccination daily counts.
+  percentages <- subset[, str_detect(colnames(subset), "_yf")] %>% sapply(., function(x)
+    round((x / relevant_pop_est) * 100, 0))
+  
+  # Save the results and join them with the metadata columns for merging
+  # back to the main data set.
+  result[[i]] <- cbind(subset[, c("Province_State", "Month")], percentages)
+}
+# Combine the results (list format) into a data frame by adding rows. Each
+# row reflects the percentage results for one "Province_State" and each column
+# represents the vaccine counting method.
+result <- do.call(rbind, result) %>% `colnames<-`(c("Province_State", "Month", str_c(colnames(subset)[str_detect(colnames(subset), "_yf")], "_percent")))
+
+# Merge the previous data set with the normalized daily counts, combining by
+# unique matches with the "Month" and "Province_State" columns.
+df_cumulative <- merge(df_cumulative, result, by = c("Province_State", "Month"))
+
+
+## Because the raw data is imperfect, it is possible that cumulative counts will
+## reflect over 100% vaccinated. We can check which columns have this issue.
+
+sapply(df_cumulative[, str_detect(colnames(df_cumulative), "percent")], function(x)
+  any(x > 100)) %>% as.data.frame() %>% `colnames<-`("Over 100%?")
+
+
+## Fix the values that are over 100% vaccinated and reset to 100%.
+df_cumulative$People_at_least_one_dose_yf_percent[df_cumulative$People_at_least_one_dose_yf_percent > 100] <- 100
+
+
+
+
+## ----------------------------------------------------------------------------
 ## GENERATE AND SAVE OUR PLOT
 
 # Vectors with the unique entries for "Province_State", excluding the "United
@@ -423,6 +535,10 @@ unique_regions     = df_total$Province_State %>% .[. %!in% c("United States", un
 unique_districts   = df_total$Province_State %>% .[. %!in% c("United States", unique_states, unique_territories)] %>% unique() %>% .[-c(1:4)]
 
 
+# Vector of the dates for cumulative vaccination proportions.
+cumulative_dates = df_cumulative$Month %>% unique()
+
+
 # Vectors with the different column-value names by the types of counts they
 # represent. Recall the following y-axis variable options:
 #     - "_yf"         <- cumulative counts smoothed to be monotonically increasing.
@@ -430,56 +546,73 @@ unique_districts   = df_total$Province_State %>% .[. %!in% c("United States", un
 #     - "_yf_percent" <- daily counts normalized by census data for percentage
 #                        of the population that is vaccinated.
 
-percentages_counts <- colnames(df_total)[str_detect(colnames(df_total), "percent")]
+percentages_counts = colnames(df_total)[str_detect(colnames(df_total), "percent")]
 
 cumulative_counts
 daily_counts
 percentages_counts
 
 
-# Line plot for percentages:
+# Recall the following table relating U.S. states with regions and districts.
+us_regions_divisions
+
+
+
+# Line plot
 
 line_plot <- df_total %>%
   # Filter the data to plot only a selection of "Province_State" entries.
-  filter(Province_State %in% unique_territories) %>%
+  filter(Province_State %in% unique_regions) %>%
   # Generate the plot with time as the x-axis and vaccinations as the y-axis.
-  ggplot(data = ., aes(x = Month, y = Doses_admin_yf_percent)) +
+  ggplot(data = ., aes(x = Month, y = Doses_admin_yf_daily)) +
       # Generate a line plot and separate data by unique "Province_State".
       geom_line(aes(color = Province_State)) +
       # Format the y-axis to show values as a percent.
-      scale_y_continuous(labels = function(x) paste0(x, "%")) +
+      scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6)) +
       # Format the x-axis to show dates as Jan 2020 from 01/01/2020, spaced
       # every four months.
       scale_x_date(date_breaks = "4 month", date_labels =  "%b %Y") +
       # To adjust the legend title both the color and fill need to by
       # changed to the same string.
-      scale_fill_discrete(name  = "U.S. Territories") +
-      scale_color_discrete(name = "U.S. Territories") +
+      scale_fill_discrete(name  = "U.S. Regions") +
+      scale_color_discrete(name = "U.S. Regions") +
       # Title, x-axis, and y-axis labels. NOTE: "\n" forms a new line.
-      labs(title = "Doses Administered by U.S. Territories",
-           x = "Month", y = "Percentage of the Population") +
+      labs(title = "Doses Administered by U.S. Regions",
+           x = "Month", y = "Number of Doses Administered") +
       # Graph displays as minimal with a legend.
       theme_minimal() #+ theme(legend.position = "none")
 
 
-# Bar plot for daily counts:
+line_plot
 
-bar_plot <- df_total %>%
-  filter(Province_State %in% unique_territories) %>%
-      ggplot(data = ., aes(x = Month, y = Doses_admin_yf_daily)) +
+
+
+# Bar plot
+
+# Get the reference horizontal line for overall U.S. vaccinations.
+overall <- df_cumulative[df_cumulative$Province_State == "United States" & 
+                         df_cumulative$Month == cumulative_dates[4], 
+                         percentages_counts[1]]
+
+bar_plot <- df_cumulative %>%
+  filter(Province_State %in% unique_states & Month %in% cumulative_dates[4]) %>%
+  ggplot(data = ., aes(x = reorder(Province_State, People_at_least_one_dose_yf_percent), 
+                       y = People_at_least_one_dose_yf_percent/100)) +
       # stat = "identity" tells the algorithm to not aggregate values, but
       # plot them as provided. alpha = 0.25 fills the bars with 25% opacity.
-      geom_bar(stat = "identity" , alpha = 0.25,
-               aes(color = Province_State, fill = Province_State)) +
-      scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6)) +
-      scale_x_date(date_breaks = "4 month", date_labels =  "%b %Y") +
-      scale_fill_discrete(name  = "U.S. Territories") +
-      scale_color_discrete(name = "U.S. Territories") +
-      labs(title = "Doses Administered by U.S. Territories",
-           x = "Month", y = "Daily Administration of Vaccines") +
-      theme_minimal() #+ theme(legend.position = "none")
+      geom_bar(stat = "identity", position = "dodge", alpha = 0.3, fill = "#A353FF") +
+      scale_y_continuous(labels = scales::percent) +
+      geom_hline(yintercept = overall/100, linetype = "dashed", color = "#00356B") +
+      annotate("text", x = 3, y = overall/100, label = "U.S. Rate", 
+               vjust = -0.5, colour = "#00356B") +
+      #scale_fill_discrete(name  = "U.S. Regions") +
+      #scale_color_discrete(name = "U.S. Regions") +
+      labs(title = "People With At Least One Dose by March 2023",
+           x = "", y = "Percentage of the Population") +
+      theme_minimal() + theme(axis.text.x = element_text(angle = 65,  hjust = 1))
 
 
+bar_plot
 
 
 # Save a plot as a jpeg file.
