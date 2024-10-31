@@ -54,18 +54,18 @@ The repository needs to be copied into your personal GitHub for the workshop in 
 
 **METHOD 2:** Copying Using Terminal
 
-1. [Create a new](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository) GitHub repository.
+1. [Create a new](https://github.com/new) GitHub repository ([Further documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)).
    
    **NOTE:** Do not use a template or include a description, README file, .gitignore, or license. Only adjust the GitHub account owner as needed and create the name for the new repository. We recommend initially setting the reposiotry to Private.
    
 2. Open Terminal.
 
-3. Navigate to the file location you want to sotre the repository copy.
+3. Navigate to the file location you want to store the repository copy.
    ```
    cd "/file_location/"
    ```
 
-5. Clone a bare copy of the repository.
+4. Clone a bare copy of the repository.
    ```
    # using SSH
    git clone --bare git@github.com:ysph-dsde/JHU-CRC-Vaccinations.git
@@ -74,12 +74,12 @@ The repository needs to be copied into your personal GitHub for the workshop in 
    git clone --bare https://github.com/ysph-dsde/JHU-CRC-Vaccinations.git
    ```
    
-6. Open the project file.
+5. Open the project file.
    ```
    cd "JHU-CRC-Vaccinations.git"
    ```
    
-7. Push a mirror of the cloned Git file to your newly created GitHub repository.
+6. Push a mirror of the cloned Git file to your newly created GitHub repository.
    ```
    # using SSH
    git push --mirror git@github.com:EXAMPLE-USER/NEW-REPOSITORY.git
@@ -88,12 +88,12 @@ The repository needs to be copied into your personal GitHub for the workshop in 
    git push --mirror https://github.com/EXAMPLE-USER/NEW-REPOSITORY.git
    ```
 
-8. Delete the bare cloned file used to create a new remote repository.
+7. Delete the bare cloned file used to create a new remote repository.
    ```
    cd ..                                    # Go back one file location
    rm -rf JHU-CRC-Vaccinations.git          # Delete the bare clone
    ```
-9. Proceed with cloning the newly copied repository.
+8. Proceed with cloning the newly copied repository.
 
 ### Cloning the Copied Repository
 
@@ -101,11 +101,11 @@ Now that you have copied this repository into your own GitHub, you are ready to 
   
 1. Open Terminal.
 
-2. Navigate to the file location you want to sotre the repository copy.
+2. Navigate to the file location you want to store the repository copy.
    ```
    cd "/file_location/"
    ```
-4. Clone the newly created GitHub repository.
+3. Clone the newly created GitHub repository.
    ```
    # using SSH
    git clone git@github.com:EXAMPLE-USER/NEW-REPOSITORY.git
@@ -114,7 +114,7 @@ Now that you have copied this repository into your own GitHub, you are ready to 
    git clone https://github.com/EXAMPLE-USER/NEW-REPOSITORY.git
    ```
 
-5. **OPTIONAL:** You can reset the repository history, which will clear the previous commits, by running the following block of code (Source: [StackExchange by Zeelot](https://stackoverflow.com/questions/9683279/make-the-current-commit-the-only-initial-commit-in-a-git-repository)).
+4. **OPTIONAL:** You can reset the repository history, which will clear the previous commits, by running the following block of code (Source: [StackExchange by Zeelot](https://stackoverflow.com/questions/9683279/make-the-current-commit-the-only-initial-commit-in-a-git-repository)).
     ```
     git checkout --orphan tempBranch         # Create a temporary branch
     git add -A                               # Add all files and commit them
