@@ -48,7 +48,7 @@ The repository needs to be copied into your personal GitHub for the workshop in 
 
 3. Paste the URL of this repository when prompted. No credentials are required for this action.
 
-4. Adjust the GitHub account owner as needed and create the name for the new repository. We recommend initially setting the reposiotry to Private.
+4. Adjust the GitHub account owner as needed and create the name for the new repository. We recommend initially setting the repository to Private.
 
 5. Proceed with cloning the newly copied repository.
 
@@ -56,7 +56,7 @@ The repository needs to be copied into your personal GitHub for the workshop in 
 
 1. [Create a new](https://github.com/new) GitHub repository ([Further documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)).
    
-   **NOTE:** Do not use a template or include a description, README file, .gitignore, or license. Only adjust the GitHub account owner as needed and create the name for the new repository. We recommend initially setting the reposiotry to Private.
+   **NOTE:** Do not use a template or include a description, README file, .gitignore, or license. Only adjust the GitHub account owner as needed and create the name for the new repository. We recommend initially setting the repository to Private.
    
 2. Open Terminal.
 
