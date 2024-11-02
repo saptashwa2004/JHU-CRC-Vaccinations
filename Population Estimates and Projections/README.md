@@ -33,7 +33,7 @@ The U.S. Census Bereau provides population estimates and projections using two m
 Please see the "Census Data Harmonization Script.R" comments for further details describing the harmonization steps taken and accuracy checks completed to ensure that data integrety is maintained.
 
 Additional relevent data quality and other methods notes from the U.S. Census Bereau can be found in the following links:
-- [Impact of 2020 on Island Census](https://www.census.gov/newsroom/press-releases/2024/2020-island-areas-cross-tabulation-american-samoa.html)
-- About [Pupulation Estimates](https://www.census.gov/programs-surveys/popest/about.html).
-- About [Population Projections](https://www.census.gov/programs-surveys/popproj/about.html).
+- Note on the [impact of 2020 on Island Census](https://www.census.gov/newsroom/press-releases/2024/2020-island-areas-cross-tabulation-american-samoa.html)
+- About [Pupulation Estimates](https://www.census.gov/programs-surveys/popest/about.html)
+- About [Population Projections](https://www.census.gov/programs-surveys/popproj/about.html)
 
