@@ -24,13 +24,13 @@ There are two GitHub repsitories associated with this workshop. The link to the 
 
 ### Overview Of Contents
 
-- **For the analysis:** "Analysis Script_Vaccinations Time-Series Plot.R"
-- **For cleaning the raw data:** "Cleaning Script_Vaccinations.R"
-- **For harmonizing census data:** "Population Estimates and Projections/Population Data Cleaning Script.R"
+- **For the analysis:** `Analysis Script_Vaccinations Time-Series Plot.R`
+- **For cleaning the raw data:** `Cleaning Script_Vaccinations.R`
+- **For harmonizing census data:** `Population Estimates and Projections/Census Data Harmonization Script.R`
 - **R version:** 4.4.1
 - ``renv`` is included to reproduce the environment.
 
-**NOTE:** The cleaning and census harmonization scripts have already been run to generate the necessary files called in the analysis workflow. Users of this repository will only need to open the "Analysis Script_Vaccinations Time-Series Plot.R".
+**NOTE:** The cleaning and census harmonization scripts have already been run to generate the necessary files called in the analysis workflow. Users of this repository will only need to open the `Analysis Script_Vaccinations Time-Series Plot.R`.
 
 ## Using this Repository
 
@@ -53,6 +53,8 @@ The repository needs to be copied into your personal GitHub for the workshop in 
 5. Proceed with cloning the newly copied repository.
 
 **METHOD 2:** Copying Using Terminal
+
+These directions follow GitHub's [Duplicating a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) page.
 
 1. [Create a new](https://github.com/new) GitHub repository ([Further documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)).
    
@@ -128,8 +130,8 @@ Now that you have copied this repository into your own GitHub, you are ready to 
 ### Initializing the Environment
 
 1. Open the newly cloned file.
-2. Launch the project by opening "JHU-CRC-Vaccinations.Rproj".
-3. Open "Analysis Script_Vaccinations Time-Series Plot.R".
+2. Launch the project by opening `JHU-CRC-Vaccinations.Rproj`.
+3. Open `Analysis Script_Vaccinations Time-Series Plot.R`.
 4. In the R console, activate the enviroment by runing:
     ```
     renv::restore()
