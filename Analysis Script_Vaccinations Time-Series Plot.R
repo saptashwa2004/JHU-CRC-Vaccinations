@@ -104,7 +104,7 @@ df %>%
       geom_line(aes(color = Province_State)) +
       scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6)) +
       scale_x_date(date_breaks = "4 month", date_labels =  "%b %Y") +
-      labs(title = "Raw Data Line Plot",
+      labs(title = "Raw Data Line Plot - Cumulative\nBy State",
            x = "Daily Updates", y = "People With at Least One Dose") +
       theme_minimal() + theme(legend.position = "none")
 
@@ -150,12 +150,12 @@ dim(df_cleaned)
 ## and daily counts correctly when aggregated to monthly updates.
 df_cleaned %>%
   filter(Province_State %!in% "United States") %>%
-  ggplot(data = ., aes(x = Month, y = People_at_least_one_dose_yf)) +
+      ggplot(data = ., aes(x = Month, y = People_at_least_one_dose_yf)) +
       geom_line(aes(color = Province_State)) +
       scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6)) +
       scale_x_date(date_breaks = "4 month", date_labels =  "%b %Y") +
-      labs(title = "Aggregated Data Line Plot\nMax of Cumulative Sum",
-           x = "Monthly Updates", y = "People With at Least One Dose `yf`") +
+      labs(title = "Total Number of People With at Least One Dose - Cumulative\nBy State",
+           x = "Monthly Updates", y = "People With at Least One Dose") +
       theme_minimal() + theme(legend.position = "none")
 
 
@@ -166,8 +166,8 @@ df_cleaned %>%
       geom_line(aes(color = Province_State)) +
       scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6)) +
       scale_x_date(date_breaks = "4 month", date_labels =  "%b %Y") +
-      labs(title = "Aggregated Data Line Plot\nSum of Daily Counts",
-           x = "Monthly Updates", y = "People With at Least One Dose `yf`") +
+      labs(title = "Total Number of People With at Least One Dose - Daily\nBy State",
+           x = "Monthly Updates", y = "People With at Least One Dose") +
       theme_minimal() + theme(legend.position = "none")
 
 
