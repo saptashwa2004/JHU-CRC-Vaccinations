@@ -591,7 +591,7 @@ line_plot
 
 # Get the reference horizontal line for overall U.S. vaccinations.
 overall <- df_cumulative[df_cumulative$Province_State == "United States" & 
-                         df_cumulative$Month == cumulative_dates[4], 
+                           df_cumulative$Month == cumulative_dates[4], 
                          percentages_counts[1]]
 
 bar_plot <- df_cumulative %>%
@@ -607,7 +607,7 @@ bar_plot <- df_cumulative %>%
                vjust = -0.5, colour = "#00356B") +
       #scale_fill_discrete(name  = "U.S. Regions") +
       #scale_color_discrete(name = "U.S. Regions") +
-      labs(title = "People With At Least One Dose by March 2023",
+      labs(title = "Percentage of Population With At Least One Dose by March 2023",
            x = "", y = "Percentage of the Population") +
       theme_minimal() + theme(axis.text.x = element_text(angle = 65,  hjust = 1))
 
