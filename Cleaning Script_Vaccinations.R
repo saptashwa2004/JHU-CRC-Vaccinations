@@ -335,7 +335,7 @@ result
 
 result = list()
 for (i in 1:length(unique(df$Province_State))) {
-  # Subset the data set for one "Province_State" entry This time the
+  # Subset the data set for one "Province_State" entry. This time the
   # search space is not restricted.
   subset <- df[df$Province_State %in% unique(df$Province_State)[i], ]
   
