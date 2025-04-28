@@ -5,4 +5,6 @@
 .Rprofile
 .Rproj.user
 References.docx
-Population Estimates and Projections/Not Used Data Sets
+
+# Ignore the archived file.
+*.git.zip
